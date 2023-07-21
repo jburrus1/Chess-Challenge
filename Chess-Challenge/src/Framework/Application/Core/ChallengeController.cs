@@ -288,7 +288,7 @@ namespace ChessChallenge.Application
                 {
                     UpdateBotMatchStats(result);
                     botMatchGameIndex++;
-                    int numGamesToPlay = botMatchStartFens.Length * 2;
+                    int numGamesToPlay = botMatchStartFens.Length * 2/10;
 
                     if (botMatchGameIndex < numGamesToPlay && autoStartNextBotMatch)
                     {
@@ -412,7 +412,7 @@ namespace ChessChallenge.Application
 
 
         ChessPlayer PlayerToMove => board.IsWhiteToMove ? PlayerWhite : PlayerBlack;
-        public int TotalGameCount => botMatchStartFens.Length * 2;
+        public int TotalGameCount => botMatchStartFens.Length * 2/10;
         public int CurrGameNumber => Math.Min(TotalGameCount, botMatchGameIndex + 1);
         public string AllPGNs => pgns.ToString();
 
