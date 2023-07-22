@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using ChessChallenge.API;
 
 public class V1 : IChessBot
@@ -43,7 +45,7 @@ public class V1 : IChessBot
             return (Move.NullMove, -200);
         }
 
-        var bestMove = moves[new Random().Next(moves.Length)];
+        var bestMoves = moves.ToList();
         int highestValueMove = int.MinValue;
 
         foreach (Move move in moves)
@@ -51,7 +53,7 @@ public class V1 : IChessBot
             // Always play checkmate in one
             if (MoveIsCheckmate(board, move))
             {
-                bestMove = move;
+                bestMoves = new List<Move>{move};
                 break;
             }
 
@@ -60,10 +62,14 @@ public class V1 : IChessBot
             if (moveValue > highestValueMove)
             {
                 highestValueMove = moveValue;
-                bestMove = move;
+                bestMoves = new List<Move>{move};
+            }
+            else if (moveValue == highestValueMove)
+            {
+                bestMoves.Add(move);
             }
         }
-        return (bestMove,highestValueMove);
+        return (bestMoves[new Random().Next(bestMoves.Count)],highestValueMove);
     }
 
 
